@@ -1,0 +1,61 @@
+@base_url = http://localhost:8080
+# @base_url = https://securesync-webservice-dp2rhrnfxa-uc.a.run.app
+
+GET {{base_url}} HTTP/1.1
+
+###
+
+POST {{base_url}}/tenants HTTP/1.1
+content-type: application/json
+
+{
+   "federal_id": "4816110",
+   "long_name": "Cypress-Fairbanks ISD",
+   "short_name": "Cy-Fair ISD",
+   "domain": "cfisd.net"
+}
+
+###
+
+GET {{base_url}}/tenants/acmeisd HTTP/1.1
+
+###
+
+GET {{base_url}}/tenants/acmeisd/providers HTTP/1.1
+
+###
+
+POST {{base_url}}/tenants/acmeisd/providers HTTP/1.1
+content-type: application/json
+
+{
+   "active": true,
+   "connection": {
+      "system_type": "database",
+      "database": {
+         "connection_string": "foo://bar?bar"
+      }
+   },
+   "domains": {
+      "assessments": {
+         "field_defs": [],
+         "field_mappings": []
+      }
+   }
+}
+
+###
+
+GET {{base_url}}/tenants/acmeisd/jobs HTTP/1.1
+
+###
+
+POST {{base_url}}/tenants/acmeisd/jobs HTTP/1.1
+content-type: application/json
+
+{
+   "enabled": true,
+   "provider_id": "edfi_4_wsapi",
+   "schedule": "every 1 day",
+   "tasks": ["students"]
+}
